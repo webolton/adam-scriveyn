@@ -12,3 +12,9 @@ machine learning / CV program. This will take some trial and error, I suspect.
     import sys
     sys.path.append('../')
     from transcriber.imagePreProcessor import loadImage
+
+### Running the one test
+(This took time to figure out. See `docs/TODO.md` for more).
+From project root directory, run
+
+    python -m unittest tests.transcriber.TestImagePreProcessor
