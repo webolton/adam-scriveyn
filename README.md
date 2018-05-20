@@ -1,6 +1,6 @@
 # Adam Scriveyn
 
-### Version 0.01
+### Version 0.1.0
 
 ## Prerequisites
 
