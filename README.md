@@ -2,6 +2,12 @@
 
 ### Version 0.01
 
+## Prerequisites
+
+- Python 3.6.5
+- Conda 4.5.1
+- pip
+
 ## Description
 
 Adam Scriveyn is a Python micro-service for automated transcription of Middle English manuscript texts.
