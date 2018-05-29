@@ -1,18 +1,16 @@
-# Resize manuscript images
+# Divide MS images into single pages; name images
 import os, sys
 from PIL import Image
 
-def load_image():
+def split_and_rename_images(img_path):
     """
-    First step in making this program
+    Split and rename images
     """
-    img = Image.open('images/N_73v_74r.JPG')
+
+    img = Image.open(img_path)
     image_info = (img.format, img.size, img.mode)
     print(image_info)
     return image_info
-
-def main():
-    load_image()
 
 if __name__ == '__main__':
     main()

@@ -1,12 +1,13 @@
 import unittest
 from lib import ImageProcessor
-from lib.ImageProcessor import load_image
+from lib.ImageProcessor import split_and_rename_images
 
 class TestImageProcessor(unittest.TestCase):
 
-    def test_load_image(self):
-        data_list = ('JPEG', (3520, 3136), 'RGB')
-        res = load_image()
+    def test_split_and_rename_images(self):
+        img_path = 'tests/mock_data/Matz.jpg'
+        data_list = ('JPEG', (320, 410), 'RGB')
+        res = split_and_rename_images(img_path)
         self.assertEqual(res, data_list)
 
 if __name__ == '__main__':
