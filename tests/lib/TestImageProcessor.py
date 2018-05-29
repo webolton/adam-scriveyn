@@ -1,8 +1,8 @@
 import unittest
-from transcriber import ImagePreProcessor
-from transcriber.ImagePreProcessor import load_image
+from lib import ImageProcessor
+from lib.ImageProcessor import load_image
 
-class TestImagePreProcessor(unittest.TestCase):
+class TestImageProcessor(unittest.TestCase):
 
     def test_load_image(self):
         data_list = ('JPEG', (3520, 3136), 'RGB')

@@ -1,7 +1,7 @@
 # Transcriber ignored files
-transcriber/__pycache__
+lib/__pycache__
 
-tests/transcriber/__pycache__
+tests/lib/__pycache__
 
 # Ignore images during development
 images/*
