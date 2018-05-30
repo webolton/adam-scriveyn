@@ -18,3 +18,7 @@ machine learning / CV program. This will take some trial and error, I suspect.
 From project root directory, run
 
     python -m unittest tests.lib.TestImageProcessor
+
+to run a single test in the module:
+
+    python -m unittest tests.lib.TestImageProcessor tests.lib.TestImageProcessor.test_rename_images_in_directory

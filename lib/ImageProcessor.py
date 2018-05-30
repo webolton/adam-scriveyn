@@ -1,9 +1,28 @@
-# Divide MS images into single pages; name images
+# -*- coding: utf-8 -*-
+
+''' Divide MS images into single pages; name images '''
+
+import os
 import imageio
 
-def split_and_rename_image(img_path, output_path, ms_siglum):
+def rename_images_in_directory(input_dir):
+    # future params: input_dir, begin_index, begin_side, lacunae={}
+    img_dir = directory = os.fsencode(input_dir)
+    imgs = []
+    for file in os.listdir(img_dir):
+        filename = os.fsdecode(file)
+        print(filename)
+
+def split_and_rename_image(img_path, out_dir, ms_siglum, page_number=0):
     """
-    Split and rename images
+    Bisects, renames, and saves new images of MS pages
+
+    Args:
+        img_path (str): the directory and name of image.
+        out_dir (str): the directory that the two new images will be stored in.
+        ms_siglum (str): the abbreviated siglum of the MS, according to Görlach.
+        page_number (int): the page number for the file name.
+        lacunae (dic): a dictionary of the possible lacunae in the MS.
     """
 
     verso_no = 2
@@ -19,8 +38,8 @@ def split_and_rename_image(img_path, output_path, ms_siglum):
     side2 = img[:, width_cutoff:, :]
 
     # Save the two halves
-    imageio.imwrite(f"{output_path}/{ms_siglum}_{verso_no}v.jpg", side1)
-    imageio.imwrite(f"{output_path}/{ms_siglum}_{recto_no}r.jpg", side2)
+    imageio.imwrite(f"{out_dir}/{ms_siglum}_{verso_no}v.jpg", side1)
+    imageio.imwrite(f"{out_dir}/{ms_siglum}_{recto_no}r.jpg", side2)
 
     return(height, width)
 
