@@ -8,21 +8,23 @@ from lib.ImageProcessor import split_and_rename_image, rename_images_in_director
 class TestImageProcessor(unittest.TestCase):
 
     def test_rename_images_in_directory(self):
+        page_data = { 'start_index': 2, 'start_side': 'v', 'start_leaf': 1 }
         input_dir = 'tests/mock_data/matz_pix'
-
-        rename_images_in_directory(input_dir)
+        out_dir = 'tests/mock_data/mock_output_data'
+        siglum = 'N'
+        rename_images_in_directory(input_dir, out_dir, siglum, page_data)
 
         self.assertEqual(1, 1)
 
     def test_split_and_rename_image(self):
         img_path = 'tests/mock_data/Matz.jpg'
         out_dir = 'tests/mock_data/mock_output_data'
-        ms_siglum = 'N'
+        siglum = 'N'
 
-        split_and_rename_image(img_path, out_dir, ms_siglum)
+        split_and_rename_image(img_path, out_dir, siglum)
 
-        side1 = imageio.imread(out_dir + f"/{ms_siglum}_2v.jpg")
-        side2 = imageio.imread(out_dir + f"/{ms_siglum}_3r.jpg")
+        side1 = imageio.imread(out_dir + f"/{siglum}_2v.jpg")
+        side2 = imageio.imread(out_dir + f"/{siglum}_3r.jpg")
 
         original_image = imageio.imread(img_path)
 
