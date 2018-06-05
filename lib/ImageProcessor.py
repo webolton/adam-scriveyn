@@ -99,8 +99,8 @@ def split_and_rename_image(img_path, out_dir, siglum, page_number=0):
     side2 = img[:, width_cutoff:, :]
 
     # Save the two halves
-    imageio.imwrite(f"{out_dir}/{ms_siglum}_{verso_no}v.jpg", side1)
-    imageio.imwrite(f"{out_dir}/{ms_siglum}_{recto_no}r.jpg", side2)
+    imageio.imwrite(f"{out_dir}/{siglum}_{verso_no}v.jpg", side1)
+    imageio.imwrite(f"{out_dir}/{siglum}_{recto_no}r.jpg", side2)
 
     return(height, width)
 
