@@ -1,6 +1,7 @@
 # Main program ignored files
 lib/__pycache__
 tests/lib/__pycache__
+tests/__pycache__
 
 # Ignore images during development
 images/*
