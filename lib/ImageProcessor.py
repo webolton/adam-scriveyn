@@ -48,8 +48,16 @@ def rename_images_in_directory(input_dir, out_dir, siglum, page_data, fm_numbers
 
 def front_matter_file_names(siglum, fm_numbers):
     '''
-    Returns file names for front matter. Currently hard coded as FM plus a page no (not folio no)
+    Returns file names for front matter. Currently hard coded as FM plus a page no (not folio no).
+    Args:
+        siglum (str): the siglum for the MS.
+        fm_numbers (tup): the front matter page numbers to be used in the file name.
+    Returns:
+        tuple:
+            file_names (tup): file names for front matter pages in image.
+            fm_numbers (tup): incremented front matter page references.
     '''
+
     file_names = (f"{siglum}_FM_{fm_numbers[0]}", f"{siglum}_FM_{fm_numbers[1]}")
     fm_numbers = (fm_numbers[0] + 2, fm_numbers[1] + 2)
 
