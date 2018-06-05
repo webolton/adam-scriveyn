@@ -13,7 +13,7 @@ def rename_images_in_directory(input_dir, out_dir, siglum, page_data, fm_numbers
     Args:
         input_dir (str): the directory where original the images are.
         out_dir (str): the directory where the split and renamed images will be saved.
-        siglum (str): the siglum for the MS.
+        siglum (str): the abbreviated siglum of the MS, according to Görlach.
         page_data (dic): a dictionary of metadata about the starting page / leaf. Should look like:
             { 'start_index': 9, 'start_side': 'r', 'start_folio': 1 }
         fm_numbers (tup): the beginning front matter pagination. Default args: (1, 2)
@@ -36,7 +36,7 @@ def rename_images_in_directory(input_dir, out_dir, siglum, page_data, fm_numbers
         if index < start_index:
             file_names, fm_numbers = front_matter_file_names(siglum, fm_numbers)
 
-        # Get file names for the first paginaged leaf call split_and_rename_image
+        # Get file names for the first paginated leaf call split_and_rename_image
         if index == start_index:
             leaf_numbers, file_names, next_leaf = first_leaf_file_names(start_side, start_folio,
                                                                         fm_numbers, siglum)
@@ -64,6 +64,21 @@ def front_matter_file_names(siglum, fm_numbers):
     return(file_names, fm_numbers)
 
 def first_leaf_file_names(start_side, start_folio, fm_numbers, siglum):
+    '''
+    Returns file names for first image containing first folio. When first folio starts on recto,
+    front matter page is hard coded to FM.
+    Args:
+        start_side (str): the starting side of the folio. Can only be 'r' or 'v'.
+        TODO: Assign recto and verso to constants.
+        start_folio (int): the number of the first folio.
+        fm_numbers (tup): the last fm_return for calculating a folio starting with 'r'
+        siglum (str): the siglum for the MS.
+    Returns:
+        tuple:
+            leaf_numbers (tup): assigns tuple of leaf numbers (int) for subsequent folios.
+            file_names (tup): file names for first folio images.
+            next_leaf (int): last leaf number to use as iterator.
+    '''
     if start_side == 'r':
         leaf_numbers = (fm_numbers[0], start_folio)
         file_names = (f"{siglum}_FM_{leaf_numbers[0]}", f"{siglum}_{leaf_numbers[1]}r")
@@ -79,6 +94,17 @@ def first_leaf_file_names(start_side, start_folio, fm_numbers, siglum):
         return(leaf_numbers, file_names, next_leaf)
 
 def paginated_leaves_file_names(next_leaf, siglum, leaf_numbers):
+    '''
+    Returns file names for folios following first.
+    Args:
+        next_leaf (int): starting number for foliation.
+        siglum (str): the siglum for the MS.
+        leaf_numbers (tup): assigns tuple of leaf numbers (int) for subsequent folios.
+    Returns:
+        leaf_numbers (tup): assigns tuple of leaf numbers (int) for subsequent folios.
+        file_names (tup): file names for the folio images.
+        next_leaf (int): iterator for continuing foliation.
+    '''
     leaf_numbers = (next_leaf, next_leaf + 1)
     file_names = (f"{siglum}_{leaf_numbers[0]}v", f"{siglum}_{leaf_numbers[1]}r")
     next_leaf = leaf_numbers[1]
