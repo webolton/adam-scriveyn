@@ -8,7 +8,7 @@ from lib.ImageProcessor import split_and_rename_image, rename_images_in_director
 class TestImageProcessor(unittest.TestCase):
 
     def test_rename_images_in_directory(self):
-        page_data = { 'start_index': 2, 'start_side': 'v', 'start_leaf': 1 }
+        page_data = { 'start_index': 2, 'start_side': 'v', 'start_folio': 1 }
         input_dir = 'tests/mock_data/matz_pix'
         out_dir = 'tests/mock_data/mock_output_data'
         siglum = 'N'
