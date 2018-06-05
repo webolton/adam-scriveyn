@@ -3,7 +3,7 @@ import os
 import glob
 import imageio
 from lib import ImageProcessor
-from lib.ImageProcessor import split_and_rename_image, rename_images_in_directory
+from lib.ImageProcessor import split_and_rename_image, rename_images_in_directory, front_matter_file_names
 
 class TestImageProcessor(unittest.TestCase):
 
@@ -15,6 +15,14 @@ class TestImageProcessor(unittest.TestCase):
         rename_images_in_directory(input_dir, out_dir, siglum, page_data)
 
         self.assertEqual(1, 1)
+
+    def test_front_matter_file_names(self):
+        siglum = 'N'
+        fm_numbers = (6, 7)
+        file_names, fm_numbers = front_matter_file_names(siglum, fm_numbers)
+        returned_names = ('N_FM_6', 'N_FM_7')
+
+        self.assertEqual((returned_names, (8, 9)), (file_names, fm_numbers))
 
     def test_split_and_rename_image(self):
         img_path = 'tests/mock_data/Matz.jpg'
