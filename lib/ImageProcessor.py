@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-''' Divide MS images into single leaves; name images. '''
+''' Divide MS images into single leaves; rename images. '''
 
 import os
 import imageio
@@ -122,6 +122,9 @@ def split_and_rename_image(img_path, out_dir, file_names):
         img_path (str): the directory and name of image.
         out_dir (str): the directory that the two new images will be stored in.
         file_names (tup): the names for the two images.
+    TODO:
+        It might be worth while to detect the middle of the page, if simply cutting the image in
+        half is not effective enough.
     """
 
     # Load the image
