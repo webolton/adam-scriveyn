@@ -114,20 +114,15 @@ def paginated_leaves_file_names(next_leaf, siglum, leaf_numbers):
 
     return(leaf_numbers, file_names, next_leaf)
 
-def split_and_rename_image(img_path, out_dir, siglum, page_number=0):
+def split_and_rename_image(img_path, out_dir, file_names):
     """
     Bisects, renames, and saves new images of MS pages
 
     Args:
         img_path (str): the directory and name of image.
         out_dir (str): the directory that the two new images will be stored in.
-        siglum (str): the abbreviated siglum of the MS, according to Görlach.
-        page_number (int): the page number for the file name.
-        lacunae (dic): a dictionary of the possible lacunae in the MS.
+        file_names (tup): the names for the two images.
     """
-
-    verso_no = 2
-    recto_no = 3
 
     # Load the image
     img = imageio.imread(img_path)
@@ -139,10 +134,8 @@ def split_and_rename_image(img_path, out_dir, siglum, page_number=0):
     side2 = img[:, width_cutoff:, :]
 
     # Save the two halves
-    imageio.imwrite(f"{out_dir}/{siglum}_{verso_no}v.jpg", side1)
-    imageio.imwrite(f"{out_dir}/{siglum}_{recto_no}r.jpg", side2)
-
-    return(height, width)
+    imageio.imwrite(f"{out_dir}/{file_names[0]}.jpg", side1)
+    imageio.imwrite(f"{out_dir}/{file_names[1]}.jpg", side2)
 
 if __name__ == '__main__':
     main()
