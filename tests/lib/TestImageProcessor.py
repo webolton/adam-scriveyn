@@ -1,5 +1,6 @@
 import unittest
-import os
+from mock import patch
+import os, os.path
 import glob
 import imageio
 from lib import ImageProcessor
@@ -10,22 +11,26 @@ from lib.ImageProcessor import (
 
 class TestImageProcessor(unittest.TestCase):
 
-    def test_rename_images_in_directory(self):
+    @patch('lib.ImageProcessor.split_and_rename_image')
+    def test_rename_images_in_directory(self, mock):
         page_data = { 'start_index': 2, 'start_side': 'v', 'start_folio': 1 }
         input_dir = 'tests/mock_data/matz_pix'
         out_dir = 'tests/mock_data/mock_output_data'
         siglum = 'N'
-        rename_images_in_directory(input_dir, out_dir, siglum, page_data)
 
-        self.assertEqual(1, 1)
+        path, dirs, files = next(os.walk('tests/mock_data/matz_pix'))
+        test_file_count = len(files)
+
+        rename_images_in_directory(input_dir, out_dir, siglum, page_data)
+        self.assertEqual(mock.call_count, test_file_count)
 
     def test_front_matter_file_names(self):
         siglum = 'N'
         fm_numbers = (6, 7)
-        file_names, fm_numbers = front_matter_file_names(siglum, fm_numbers)
+        fm_numbers, file_names = front_matter_file_names(siglum, fm_numbers)
         returned_names = ('N_FM_6', 'N_FM_7')
 
-        self.assertEqual((returned_names, (8, 9)), (file_names, fm_numbers))
+        self.assertEqual(((8, 9), returned_names,), (fm_numbers, file_names))
 
     def test_first_leaf_file_names(self):
         folio_sides = ('r', 'v')

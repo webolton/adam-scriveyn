@@ -34,17 +34,20 @@ def rename_images_in_directory(input_dir, out_dir, siglum, page_data, fm_numbers
 
         # Get names for front matter and call split_and_rename_image
         if index < start_index:
-            file_names, fm_numbers = front_matter_file_names(siglum, fm_numbers)
+            fm_numbers, file_names = front_matter_file_names(siglum, fm_numbers)
+            split_and_rename_image(img_path, out_dir, file_names)
 
         # Get file names for the first paginated leaf call split_and_rename_image
         if index == start_index:
             leaf_numbers, file_names, next_leaf = first_leaf_file_names(start_side, start_folio,
                                                                         fm_numbers, siglum)
+            split_and_rename_image(img_path, out_dir, file_names)
 
         # Get file names for the paginated leaves and call split_and_rename_image
         if index > start_index:
             leaf_numbers, file_names, next_leaf = paginated_leaves_file_names(next_leaf, siglum,
                                                                               leaf_numbers)
+            split_and_rename_image(img_path, out_dir, file_names)
 
 def front_matter_file_names(siglum, fm_numbers):
     '''
@@ -61,7 +64,7 @@ def front_matter_file_names(siglum, fm_numbers):
     file_names = (f"{siglum}_FM_{fm_numbers[0]}", f"{siglum}_FM_{fm_numbers[1]}")
     fm_numbers = (fm_numbers[0] + 2, fm_numbers[1] + 2)
 
-    return(file_names, fm_numbers)
+    return(fm_numbers, file_names)
 
 def first_leaf_file_names(start_side, start_folio, fm_numbers, siglum):
     '''
