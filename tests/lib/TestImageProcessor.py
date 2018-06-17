@@ -62,14 +62,14 @@ class TestImageProcessor(unittest.TestCase):
                             (actual_leaf_numbers, actual_file_names, actual_next_leaf))
 
     def test_split_and_rename_image(self):
-        img_path = 'tests/mock_data/Matz.jpg'
+        img_path = 'tests/mock_data/matz_pix/Matz_1.jpg'
         out_dir = 'tests/mock_data/mock_output_data'
-        siglum = 'N'
+        file_names = ('N_1v', 'N_2r')
 
-        split_and_rename_image(img_path, out_dir, siglum)
+        split_and_rename_image(img_path, out_dir, file_names)
 
-        side1 = imageio.imread(out_dir + f"/{siglum}_2v.jpg")
-        side2 = imageio.imread(out_dir + f"/{siglum}_3r.jpg")
+        side1 = imageio.imread(out_dir + f"/{file_names[0]}.jpg")
+        side2 = imageio.imread(out_dir + f"/{file_names[1]}.jpg")
 
         original_image = imageio.imread(img_path)
 
