@@ -1,4 +1,4 @@
-# ImagePreProcessor
+# ImageProcessor
 NB: These notes are here to help me remember what I am doing and to help me learn how to do Python
 development.
 
