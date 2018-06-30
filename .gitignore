@@ -1,7 +1,6 @@
 # Main program ignored files
-lib/__pycache__
-tests/lib/__pycache__
-tests/__pycache__
+__pycache__/
+.ipynb_checkpoints/
 
 # Ignore images during development
 images/*
