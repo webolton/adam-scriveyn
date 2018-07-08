@@ -17,7 +17,9 @@ def implt(img, cmp=None, t=''):
         t (string): title of image.
 
     """
+
     plt.imshow(img, cmap=cmp)
+    plt.rcParams["figure.figsize"] = [20,20] # todo, make figure size an optional argument.
     plt.title(t)
     plt.show()
 
