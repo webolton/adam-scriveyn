@@ -4,6 +4,13 @@
 
 import os
 import imageio
+import cv2
+
+def crop_dp_spread(file, top, bottom, left, right):
+    img = cv2.imread(file)
+    height, width, _ = img.shape
+    crop_img = img[top:height-bottom, left:width-right]
+    return crop_img
 
 def rename_images_in_directory(input_dir, out_dir, siglum, page_data, fm_numbers=(1, 2)):
     '''
