@@ -137,8 +137,8 @@ def split_and_rename_image(img_path, out_dir, file_names):
     side2 = img[:, width_cutoff:, :]
 
     # Save the two halves
-    imageio.imwrite(f"{out_dir}/{file_names[0]}.jpg", side1)
-    imageio.imwrite(f"{out_dir}/{file_names[1]}.jpg", side2)
+    cv2.imwrite(f"{out_dir}/{file_names[0]}.jpg", side1)
+    cv2.imwrite(f"{out_dir}/{file_names[1]}.jpg", side2)
 
 if __name__ == '__main__':
     main()
