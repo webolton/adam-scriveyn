@@ -7,6 +7,17 @@ import imageio
 import cv2
 
 def crop_dp_spread(file, top, bottom, left, right):
+    '''
+    Returns a cropped image.
+
+    Args:
+        file (str): the path to the file to be cropped
+        top (int): the amount to be cropped off the top margin
+        bottom (int): the amount to be cropped off the bottom margin
+        left (int): the amount to be cropped of the left margin
+        right (int): the amount to be cropped of the right margin
+    '''
+
     img = cv2.imread(file)
     height, width, _ = img.shape
     crop_img = img[top:height-bottom, left:width-right]
