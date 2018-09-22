@@ -10,23 +10,23 @@ def detection(image):
     """ Finding Page """
     # Edge detection
     imageEdges = edgesDet(image, 200, 250)
-    
+
     # Close gaps between edges (double page clouse => rectangle kernel)
-    closedEdges = cv2.morphologyEx(imageEdges, 
-                                   cv2.MORPH_CLOSE, 
+    closedEdges = cv2.morphologyEx(imageEdges,
+                                   cv2.MORPH_CLOSE,
                                    np.ones((5, 11)))
     # Countours
     pageContour = findPageContours(closedEdges, resize(image))
     # Recalculate to original scale
-    pageContour = pageContour.dot(ratio(image))    
+    pageContour = pageContour.dot(ratio(image))
     # Transform prespective
     newImage = perspImageTransform(image, pageContour)
     return newImage
-   
 
 def edgesDet(img, minVal, maxVal):
     """ Preprocessing (gray, thresh, filter, border) + Canny edge detection """
     img = cv2.cvtColor(resize(img), cv2.COLOR_BGR2GRAY)
+
 
     img = cv2.bilateralFilter(img, 9, 75, 75)
     img = cv2.adaptiveThreshold(img, 255,

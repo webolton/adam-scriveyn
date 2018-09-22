@@ -29,7 +29,7 @@ def resize(img, height=SMALL_HEIGHT, allways=False):
     if (img.shape[0] > height or allways):
         rat = height / img.shape[0]
         return cv2.resize(img, (int(rat * img.shape[1]), height))
-    
+
     return img
 
 

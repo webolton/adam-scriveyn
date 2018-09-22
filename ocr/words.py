@@ -17,6 +17,7 @@ def detection(image, join=False):
     bwImage = cv2.morphologyEx(edgeImg, cv2.MORPH_CLOSE,
                                np.ones((15,15), np.uint8))
     # Return detected bounding boxes
+
     return textDetect(bwImage, image, join)
 
 
@@ -77,26 +78,27 @@ def groupRectangles(rec):
                 j += 1
             final += [rec[i]]
         i += 1
-            
+
     return final
 
 
 def textDetect(img, image, join=False):
     """ Text detection using contours """
+
     small = resize(img, 2000)
-    
+
     # Finding contours
     mask = np.zeros(small.shape, np.uint8)
     im2, cnt, hierarchy = cv2.findContours(np.copy(small),
                                            cv2.RETR_CCOMP,
                                            cv2.CHAIN_APPROX_SIMPLE)
-    index = 0    
+    index = 0
     boundingBoxes = np.array([0,0,0,0])
     bBoxes = []
-    
+
     # image for drawing bounding boxes
     small = cv2.cvtColor(small, cv2.COLOR_GRAY2RGB)
-    
+
     # Go through all contours in top level
     while (index >= 0):
         x,y,w,h = cv2.boundingRect(cnt[index])
@@ -104,13 +106,13 @@ def textDetect(img, image, join=False):
         maskROI = mask[y:y+h, x:x+w]
         # Ratio of white pixels to area of bounding rectangle
         r = cv2.countNonZero(maskROI) / (w * h)
-        
+
         # Limits for text
         if r > 0.1 and 1600 > w > 10 and 1600 > h > 10 and h/w < 3 and w/h < 10 and (60 // h) * w < 1000:
             bBoxes += [[x, y, w, h]]
-            
+
         index = hierarchy[0][index][0]
-        
+
     # Need more work
     if join:
         bBoxes = groupRectangles(bBoxes)
@@ -118,12 +120,12 @@ def textDetect(img, image, join=False):
         cv2.rectangle(small, (x, y),(x+w,y+h), (0, 255, 0), 2)
         boundingBoxes = np.vstack((boundingBoxes,
                                    np.array([x, y, x+w, y+h])))
-        
+
     implt(small, t='Bounding rectangles')
-    
+
     bBoxes = boundingBoxes.dot(ratio(image, small.shape[0])).astype(np.int64)
-    return bBoxes[1:]  
-    
+    return bBoxes[1:]
+
 
 def textDetectWatershed(thresh):
     """ Text detection using watershed algorithm - NOT IN USE """
