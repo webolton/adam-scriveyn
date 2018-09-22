@@ -6,9 +6,9 @@ import os
 import imageio
 import cv2
 
-def crop_dp_spread(file, top, bottom, left, right):
+def crop_dp_spread(file_path, top, bottom, left, right):
     '''
-    Returns a cropped image.
+    Returns a cropped image and a new file name.
 
     Args:
         file (str): the path to the file to be cropped
@@ -18,10 +18,12 @@ def crop_dp_spread(file, top, bottom, left, right):
         right (int): the amount to be cropped of the right margin
     '''
 
-    img = cv2.imread(file)
+    img = cv2.imread(file_path)
     height, width, _ = img.shape
     crop_img = img[top:height-bottom, left:width-right]
-    return crop_img
+    file_name = f"{file_path.split('/')[-1]}"
+    return(crop_img, file_name)
+
 def save_cropped_image(img, file_name, out_dir):
     '''
     Saves a cropped image in a directory of choice. If the directory does not exsit
@@ -38,6 +40,23 @@ def save_cropped_image(img, file_name, out_dir):
     else:
         os.mkdir(out_dir)
         cv2.imwrite(f"{out_dir}/{file_name}", img)
+
+def crop_imgages(input_dir, out_dir, top, bottom, left, right):
+    '''
+    Iterate through directory and crop and save images to new directory.
+
+    Args:
+        input_dir (str): the directory where the images to be cropped are
+        out_dir (str): the path to the directory where the cropped images are to be saved
+        top (int): the amount to be cropped off the top margin
+        bottom (int): the amount to be cropped off the bottom margin
+        left (int): the amount to be cropped of the left margin
+        right (int): the amount to be cropped of the right margin
+    '''
+
+    for file in os.listdir(f"{input_dir}/"):
+        img_file_name = crop_dp_spread(f"{input_dir}/{file}", top, bottom, left, right)
+        save_cropped_image(img_file_name[0], img_file_name[1], out_dir)
 
 
 def rename_images_in_directory(input_dir, out_dir, siglum, page_data, fm_numbers=(1, 2)):
