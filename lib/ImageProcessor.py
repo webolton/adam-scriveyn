@@ -22,6 +22,23 @@ def crop_dp_spread(file, top, bottom, left, right):
     height, width, _ = img.shape
     crop_img = img[top:height-bottom, left:width-right]
     return crop_img
+def save_cropped_image(img, file_name, out_dir):
+    '''
+    Saves a cropped image in a directory of choice. If the directory does not exsit
+    it will create one.
+
+    Args:
+        img (obj): the opencv img object
+        file_name (str): the name of the file
+        out_dir (str): the directory where the files are to be stored
+    '''
+
+    if os.path.isdir(out_dir):
+        cv2.imwrite(f"{out_dir}/{file_name}", img)
+    else:
+        os.mkdir(out_dir)
+        cv2.imwrite(f"{out_dir}/{file_name}", img)
+
 
 def rename_images_in_directory(input_dir, out_dir, siglum, page_data, fm_numbers=(1, 2)):
     '''
