@@ -11,19 +11,28 @@ from .helpers import *
 def detection(image, join=False):
     """ Detecting the words bounding boxes """
     # Preprocess image for word detection
-    blurred = cv2.GaussianBlur(image, (5, 5), 18)
+    # blurred = cv2.GaussianBlur(image, (7, 7), 30)
+    blurred = cv2.GaussianBlur(image, (3, 3), 10)
+    implt(blurred)
     edgeImg = edgeDetect(blurred)
-    ret, edgeImg = cv2.threshold(edgeImg, 50, 255, cv2.THRESH_BINARY)
+    # ret, edgeImg = cv2.threshold(edgeImg, 100, 255, cv2.THRESH_BINARY)
+    ret, edgeImg = cv2.threshold(edgeImg, 90, 255, cv2.THRESH_BINARY)
+    implt(edgeImg)
+    # bwImage = cv2.morphologyEx(edgeImg, cv2.MORPH_CLOSE,
+    #                            np.ones((20,20), np.uint8))
+
+    # This function is where the bounding boxes are made. Tweakign the numbers in the np.ones call
+    # has really refined this.
     bwImage = cv2.morphologyEx(edgeImg, cv2.MORPH_CLOSE,
-                               np.ones((15,15), np.uint8))
+                           np.ones((4,3), np.uint8))
     # Return detected bounding boxes
 
     return textDetect(bwImage, image, join)
 
 
 def edgeDetect(im):
-    """ 
-    Edge detection 
+    """
+    Edge detection
     Sobel operator is applied for each image layer (RGB)
     """
     return np.max(np.array([sobelDetect(im[:,:, 0]),
@@ -62,7 +71,7 @@ def groupRectangles(rec):
     Args:
         rec - list of rectangles in form [x, y, w, h]
     Return:
-        list of grouped ractangles 
+        list of grouped ractangles
     """
     tested = [False for i in range(len(rec))]
     final = []
@@ -137,7 +146,7 @@ def textDetectWatershed(thresh):
     # noise removal
     kernel = np.ones((3,3),np.uint8)
     opening = cv2.morphologyEx(thresh,cv2.MORPH_OPEN,kernel, iterations = 3)
-    
+
     # sure background area
     sure_bg = cv2.dilate(opening,kernel,iterations=3)
 
@@ -149,7 +158,7 @@ def textDetectWatershed(thresh):
     # Finding unknown region
     sure_fg = np.uint8(sure_fg)
     unknown = cv2.subtract(sure_bg,sure_fg)
-    
+
     # Marker labelling
     ret, markers = cv2.connectedComponents(sure_fg)
 
@@ -158,12 +167,12 @@ def textDetectWatershed(thresh):
 
     # Now, mark the region of unknown with zero
     markers[unknown == 255] = 0
-    
+
     markers = cv2.watershed(img, markers)
     implt(markers, t='Markers')
     image = img.copy()
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    
+
     for mark in np.unique(markers):
         # mark == 0 --> background
         if mark == 0:
@@ -177,16 +186,16 @@ def textDetectWatershed(thresh):
                                 cv2.RETR_EXTERNAL,
                                 cv2.CHAIN_APPROX_SIMPLE)[-2]
         c = max(cnts, key=cv2.contourArea)
-        
+
         # Draw a bounding rectangle if it contains text
         x,y,w,h = cv2.boundingRect(c)
         cv2.drawContours(mask, c, 0, (255, 255, 255), cv2.FILLED)
         maskROI = mask[y:y+h, x:x+w]
         # Ratio of white pixels to area of bounding rectangle
         r = cv2.countNonZero(maskROI) / (w * h)
-        
+
         # Limits for text
         if r > 0.2 and 2000 > w > 15 and 1500 > h > 15:
             cv2.rectangle(image, (x, y),(x+w,y+h), (0, 255, 0), 2)
-        
+
     implt(image)
