@@ -1,9 +1,9 @@
 [project]
 name = "adam-scriveyn"
-version = "0.1.0"
+version = "0.0.1"
 description = ""
 authors = [
-    {name = "Your Name",email = "you@example.com"}
+    {name = "William Bolton", email = "wbolton@asu.edu"}
 ]
 readme = "README.md"
 requires-python = ">=3.13"
@@ -12,6 +12,9 @@ dependencies = [
 
 [tool.poetry]
 packages = [{include = "adam_scriveyn", from = "src"}]
+
+[tool.poetry.scripts]
+adam-scriveyn = "adam_scriveyn.adam_scriveyn:main"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
