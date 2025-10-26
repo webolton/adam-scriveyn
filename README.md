@@ -18,3 +18,13 @@
 ```bash
   pipx install ruff
 ```
+
+```bash
+ruff check
+```
+
+### Run the program
+
+```bash
+poetry run adam-scriveyn
+```
