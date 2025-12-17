@@ -1,0 +1,326 @@
+{
+  "project": {
+    "name": "Digital South English Legendary",
+    "toolName": "Adam Scriveyn",
+    "version": "0.0.1",
+    "description": "System for processing scanned Middle English manuscripts and using ML to transcribe hand-written cursive texts",
+    "author": "William Bolton",
+    "pythonVersion": ">=3.13"
+  },
+  "domain": {
+    "subject": "South English Legendary - collection of saints' lives in Middle English",
+    "sourceType": "Scanned images of hand-written Middle English manuscripts in cursive script",
+    "challenge": "Word-level handwriting recognition (OCR not viable for cursive)"
+  },
+  "phases": [
+    {
+      "phase": 1,
+      "name": "Image Preprocessing & Dataset Creation",
+      "status": "in-progress",
+      "steps": [
+        {
+          "step": 1,
+          "name": "Image Organization",
+          "description": "Copy and structure scanned images with manuscript page metadata",
+          "status": "in-progress"
+        },
+        {
+          "step": 2,
+          "name": "Computer Vision Processing",
+          "description": "Detect words on pages, extract word images, create training database",
+          "status": "not-started"
+        }
+      ],
+      "deliverable": "Word image database for model training"
+    },
+    {
+      "phase": 2,
+      "name": "Model Training & Iterative Improvement",
+      "status": "planned",
+      "steps": [
+        {
+          "step": 1,
+          "name": "Model Development",
+          "description": "Train word-level recognition model on Middle English cursive",
+          "status": "not-started"
+        },
+        {
+          "step": 2,
+          "name": "Annotation Interface",
+          "description": "Web interface for human verification and correction of predictions",
+          "status": "not-started"
+        }
+      ],
+      "deliverable": "Trained model with page-level transcription capability"
+    },
+    {
+      "phase": 3,
+      "name": "Text Refinement & Publication",
+      "status": "planned",
+      "steps": [
+        {
+          "step": 1,
+          "name": "Post-Processing Editing",
+          "description": "Clean and refine transcribed pages with iterative model improvement",
+          "status": "not-started"
+        },
+        {
+          "step": 2,
+          "name": "Scholarly Edition",
+          "description": "Multi-version web application for scholarly text publication",
+          "status": "not-started"
+        }
+      ],
+      "deliverable": "Public scholarly edition of transcribed texts"
+    }
+  ],
+  "techStack": {
+    "language": "Python",
+    "languageVersion": "3.13+",
+    "packageManager": "Poetry",
+    "cliFramework": "Click",
+    "linter": "Ruff",
+    "futureDatabase": "SQLite (planned)"
+  },
+  "designPrinciples": [
+    "SOLID Principles (Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion)",
+    "Object-Oriented Design",
+    "Separation of Concerns",
+    "CLI-First Architecture"
+  ],
+  "dependencies": {
+    "runtime": [
+      {
+        "name": "click",
+        "version": ">=8.3.0,<9.0.0",
+        "purpose": "CLI framework for command-line interface"
+      },
+      {
+        "name": "path",
+        "version": ">=17.1.1,<18.0.0",
+        "purpose": "Path manipulation utilities"
+      }
+    ],
+    "development": [
+      {
+        "name": "typing-extensions",
+        "version": ">=4.15.0,<5.0.0",
+        "purpose": "Enhanced type hints support"
+      }
+    ]
+  },
+  "projectStructure": {
+    "root": "adam-scriveyn/",
+    "directories": [
+      {
+        "path": "src/adam_scriveyn/",
+        "purpose": "Main source code"
+      },
+      {
+        "path": "src/adam_scriveyn/commands/",
+        "purpose": "CLI command implementations"
+      },
+      {
+        "path": "src/adam_scriveyn/services/",
+        "purpose": "Business logic services (image I/O, CV processing, etc.)"
+      },
+      {
+        "path": "tests/",
+        "purpose": "Test suite"
+      },
+      {
+        "path": "context/",
+        "purpose": "AI context files for development sessions"
+      }
+    ],
+    "keyFiles": [
+      {
+        "path": "src/adam_scriveyn/adam_scriveyn.py",
+        "purpose": "Main entry point and Click CLI group definition"
+      },
+      {
+        "path": "src/adam_scriveyn/commands/transfer.py",
+        "purpose": "Transfer class for organizing scanned images with metadata"
+      },
+      {
+        "path": "src/adam_scriveyn/commands/preprocess.py",
+        "purpose": "Preprocessor class for image preprocessing logic"
+      },
+      {
+        "path": "pyproject.toml",
+        "purpose": "Poetry configuration and dependencies"
+      }
+    ]
+  },
+  "implementation": [
+    {
+      "feature": "Project Structure",
+      "status": "completed",
+      "description": "Poetry project initialized with src layout"
+    },
+    {
+      "feature": "CLI Entry Point",
+      "status": "completed",
+      "description": "Click-based CLI with group structure and error handling in adam_scriveyn.py with full type hints"
+    },
+    {
+      "feature": "Type Hints",
+      "status": "completed",
+      "description": "Full type annotations on all functions and parameters for better IDE support"
+    },
+    {
+      "feature": "Transfer Class",
+      "status": "completed",
+      "description": "Image organization class for Phase 1 Step 1 with validation, file/dir traversal, and placeholder processing",
+      "class": "Transfer",
+      "file": "src/adam_scriveyn/commands/transfer.py",
+      "methods": [
+        "validate()",
+        "run()",
+        "_copy_file()"
+      ]
+    },
+    {
+      "feature": "Preprocessor Class",
+      "status": "in-progress",
+      "description": "Image preprocessing class with validation, file/dir traversal, and placeholder processing",
+      "class": "Preprocessor",
+      "file": "src/adam_scriveyn/commands/preprocess.py",
+      "methods": [
+        "validate()",
+        "run()",
+        "_process_file()"
+      ]
+    },
+    {
+      "feature": "Image Format Support",
+      "status": "completed",
+      "description": "Support for .jpg, .jpeg, .png, .tif, .tiff formats in all commands"
+    },
+    {
+      "feature": "Computer Vision Services",
+      "status": "not-started",
+      "description": "Planned services for word detection and extraction",
+      "plannedLocation": "src/adam_scriveyn/services/cv_processing.py"
+    },
+    {
+      "feature": "Word Image Database",
+      "status": "not-started",
+      "description": "Database models and storage for extracted word images"
+    },
+    {
+      "feature": "Model Training Pipeline",
+      "status": "not-started",
+      "description": "ML training framework for word recognition"
+    },
+    {
+      "feature": "Annotation Interface",
+      "status": "not-started",
+      "description": "Web interface for human verification of predictions (Phase 2)"
+    }
+  ],
+  "cliCommands": [
+    {
+      "command": "transfer",
+      "status": "completed",
+      "description": "Transfer scanned images to a structured format with manuscript metadata (Phase 1, Step 1)",
+      "usage": "poetry run adam-scriveyn transfer --source <path> --dest <directory> [--dry-run]",
+      "options": [
+        {
+          "name": "source",
+          "shorthand": "-s",
+          "type": "click.Path(exists=True)",
+          "required": true,
+          "description": "Source file or directory with scanned images (must exist)"
+        },
+        {
+          "name": "dest",
+          "shorthand": "-d",
+          "type": "click.Path()",
+          "required": true,
+          "description": "Destination directory for organized images"
+        },
+        {
+          "name": "dry-run",
+          "shorthand": null,
+          "type": "flag",
+          "required": false,
+          "description": "Preview changes without writing"
+        }
+      ],
+      "examples": [
+        "poetry run adam-scriveyn transfer -s ./scans --dest ./organized_scans",
+        "poetry run adam-scriveyn transfer -s ./scans --dest ./organized_scans --dry-run"
+      ]
+    },
+    {
+      "command": "preprocess",
+      "status": "in-progress",
+      "description": "Preprocess images to extract individual words (Phase 1, Step 2)",
+      "usage": "poetry run adam-scriveyn preprocess --path <path> [--dest <destination>] [--dry-run]",
+      "options": [
+        {
+          "name": "path",
+          "shorthand": "-p",
+          "type": "click.Path(exists=True)",
+          "required": true,
+          "description": "File or directory to preprocess (must exist)"
+        },
+        {
+          "name": "dest",
+          "shorthand": "-d",
+          "type": "click.Path()",
+          "required": false,
+          "description": "Destination directory for processed word images"
+        },
+        {
+          "name": "dry-run",
+          "shorthand": null,
+          "type": "flag",
+          "required": false,
+          "description": "Preview changes without writing"
+        }
+      ],
+      "examples": [
+        "poetry run adam-scriveyn preprocess -p ./images --dest ./words",
+        "poetry run adam-scriveyn preprocess -p ./sample.jpg --dry-run"
+      ]
+    }
+  ],
+  "architectureNotes": [
+    "Transfer handles image organization (Phase 1, Step 1) - Single Responsibility Principle",
+    "Preprocessor handles word extraction (Phase 1, Step 2) - Single Responsibility Principle",
+    "Both classes follow consistent interface: validate(), run(), _process_file() methods",
+    "Full type hints throughout for IDE support and error detection",
+    "CLI commands wrap class exceptions with ClickException for user-friendly error messages",
+    "I/O logic will be separated into services/ directory for modularity",
+    "Services directory for business logic (cv_processing.py for word detection, etc.)",
+    "Extensible Click group structure enables easy addition of future commands",
+    "Each command corresponds to a specific phase/step in the workflow"
+  ],
+  "contextUpdateInstructions": {
+    "markdown": {
+      "file": "PROJECT_CONTEXT.md",
+      "frequency": "End of each working session",
+      "sections": [
+        "Current Implementation Status - add completed features and update in-progress items",
+        "Project Structure - diagram changes if dirs/files added",
+        "Command-Line Interface - add new commands or options",
+        "Key Design Decisions - document architectural changes",
+        "Development Notes - update dependencies or technical decisions"
+      ]
+    },
+    "json": {
+      "file": "PROJECT_CONTEXT.json",
+      "frequency": "End of each working session",
+      "fields": [
+        "implementation - update status and add new features",
+        "cliCommands - add new commands with full options",
+        "phases[].status - update phase/step progress",
+        "projectStructure - add new directories/files if created",
+        "architectureNotes - document design decisions"
+      ]
+    },
+    "gitHelper": "git diff HEAD~1 or git status to review session changes"
+  }
+}
