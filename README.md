@@ -28,3 +28,23 @@ ruff check
 ```bash
 poetry run adam-scriveyn
 ```
+
+### Run the tests
+
+- Run the entire test suite
+
+```bash
+poetry run pytest
+```
+
+- Run a single test file
+
+```bash
+poetry run pytest tests/test_transfer_service.py
+```
+
+- Run a single test
+
+```bash
+poetry run pytest tests/test_transfer_service.py::TestTransferService::test_initialization
+```
