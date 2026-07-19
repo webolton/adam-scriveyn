@@ -1,0 +1,17 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "github-copilot/claude-sonnet-4-5",
+  "small_model": "github-copilot/gpt-4o-mini",
+  "compaction": {
+    "auto": true,
+    "tail_turns": 3
+  },
+  "agent": {
+    "title": {
+      "model": "github-copilot/gpt-4o-mini"
+    },
+    "summary": {
+      "model": "github-copilot/gpt-4o-mini"
+    }
+  }
+}

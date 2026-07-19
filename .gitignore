@@ -22,3 +22,7 @@ __pycache__/
 .coverage
 .pytest_cache/
 htmlcov/
+
+# Don't commit images into GitHub
+/raw-data
+/data
